@@ -17,15 +17,6 @@ const Profile = () => {
                         </IonButton>
                     </IonButtons>
 					<IonTitle>Profile</IonTitle>
-
-                    <IonButtons slot="end">
-                        <IonBadge color="dark">
-                            { shopCart.length }
-                        </IonBadge>
-						<IonButton color="dark" routerLink="/cart">
-							<IonIcon ref={ cartRef } className="animate__animated" icon={ cart } />
-						</IonButton>
-					</IonButtons>
 				</IonToolbar>
 			</IonHeader>
 			<IonContent fullscreen>

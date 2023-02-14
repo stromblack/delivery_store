@@ -3,8 +3,7 @@ import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, Ion
 import { home, cart, heart, person } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 import { setupIonicReact } from '@ionic/react';
-import Home from './pages/Home';
-
+import RouterApp from './routers/router'
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -47,29 +46,7 @@ class App extends React.Component {
 				<IonReactRouter>
 					<IonTabs>
 						<IonRouterOutlet>
-							<Route path="/" exact={true}>
-								<Redirect to="/home" />
-							</Route>
-							<Route path="/home" exact={true}>
-								<Home />
-							</Route>
-		
-							<Route path="/favourites" exact>
-								<FavouriteProducts />
-							</Route>
-		
-							<Route path="/cart" exact>
-								<CartProducts />
-							</Route>
-		
-							<Route path="/category/:slug" exact>
-								<CategoryProducts />
-							</Route>
-		
-							<Route path="/category/:slug/:id" exact>
-								<Product />
-							</Route>
-							<Route path="/profile" exact render={() => <Profile />} />
+							<RouterApp />
 						</IonRouterOutlet>
 						<IonTabBar slot="bottom">
 							<IonTabButton tab="home" href="/home">
