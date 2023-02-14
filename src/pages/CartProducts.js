@@ -123,7 +123,7 @@ const CartProducts = () => {
                 <div className={ styles.cartCheckout }>
                     <IonCardSubtitle>{ total.toLocaleString(0, {maximumFractionDigits:2}) }</IonCardSubtitle>
 
-                    <IonButton color="dark" routerLink="/cart/checkout">
+                    <IonButton color="dark" routerLink="/order/checkout">
                         <IonIcon icon={ checkmarkSharp } />&nbsp;Checkout
                     </IonButton>
                 </div>

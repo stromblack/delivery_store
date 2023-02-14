@@ -1,0 +1,15 @@
+.categoryPage ion-toolbar {
+
+    --border-style: none;
+}
+
+.placeorderFooter {
+
+    border-top: 2px solid rgb(200, 200, 200);
+    background-color: white;
+}
+
+.trackOrder {
+    margin: 1rem;
+    font-size: 1.3rem;
+}

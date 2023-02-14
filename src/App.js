@@ -59,7 +59,7 @@ class App extends React.Component {
 								<IonLabel>Favourites</IonLabel>
 							</IonTabButton>
 
-							<IonTabButton tab="cart" href="/cart">
+							<IonTabButton tab="cart" href="/cart" route>
 								<IonIcon icon={cart} />
 								<IonLabel>Carts</IonLabel>
 							</IonTabButton>

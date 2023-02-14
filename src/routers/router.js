@@ -7,7 +7,7 @@ import FavouriteProducts from '../pages/FavouriteProducts';
 import CartProducts from '../pages/CartProducts';
 import Profile from '../pages/Profile';
 import Checkout from '../pages/Checkout';
-
+import PlaceOrder from '../pages/PlaceOrder';
 const RouterApp = () => {
     return (
         <>
@@ -15,7 +15,8 @@ const RouterApp = () => {
             <Route path="/home" exact={true} render={() => <Home />} />
             <Route path="/favourites" exact render={() => <FavouriteProducts />} />
             <Route path="/cart" exact render={() => <CartProducts />} />
-            <Route path="/cart/checkout" exact render={() => <Checkout />} />
+            <Route path="/order/checkout" exact render={() => <Checkout />} />
+            <Route path="/order/placeorder" exact render={() => <PlaceOrder /> } />
             <Route path="/category/:slug" exact render={() => <CategoryProducts />} />
             <Route path="/category/:slug/:id" exact render={() => <Product />} />
             <Route path="/profile" exact render={() => <Profile />} />

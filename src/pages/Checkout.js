@@ -14,7 +14,7 @@ const Checkout = () => {
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonButton color="dark" routerLink="/cart" routerDirection="back">
-                            <IonIcon color="dark" icon={chevronBackOutline} />&nbsp;Categories
+                            <IonIcon color="dark" icon={chevronBackOutline} />&nbsp;Carts
                         </IonButton>
                     </IonButtons>
                     <IonTitle>Checkout</IonTitle>
@@ -36,7 +36,7 @@ const Checkout = () => {
                         <IonCardSubtitle>
                             { total.toLocaleString(0, {maximumFractionDigits:2}) }
                         </IonCardSubtitle>
-                        <IonButton color="tertiary">
+                        <IonButton color="tertiary" routerLink="/order/placeorder">
                             <IonIcon icon={checkmarkSharp} />&nbsp;Place Order
                         </IonButton>
                     </div>
