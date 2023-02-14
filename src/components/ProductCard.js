@@ -52,9 +52,11 @@ const ProductCard = props => {
             addToCart(categorySlug, productID);
 
             setTimeout(() => {
-                
-                cartRef.current.classList.remove("animate__tada");
-                productCartRef.current.style.display = "none";
+                if (cartRef.current != null)
+                    cartRef.current.classList.remove("animate__tada");
+
+                if (productCartRef.current != null)
+                    productCartRef.current.style.display = "none";
             }, 500);
         }, 500);
     }

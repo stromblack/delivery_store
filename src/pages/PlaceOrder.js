@@ -1,5 +1,5 @@
 
-import { IonButton, IonButtons, IonHeader, IonIcon, IonPage, IonToolbar, IonContent, IonFooter, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/react'
+import { IonButton, IonButtons, IonHeader, IonIcon, IonPage, IonToolbar, IonContent, IonFooter, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
 import { useState } from 'react'
 import styles from './PlaceOrder.module.css'
@@ -29,7 +29,7 @@ const PlaceOrder = () => {
                     }}>
                     <IonCard>
                         <IonCardHeader>
-                        <img alt="checkmark place order" src="/images/checkmark.png" />
+                        <IonImg alt="checkmark place order" src="/images/checkmark.png" />
                             <IonCardTitle>
                                 Your order was placed successfully!
                             </IonCardTitle>
