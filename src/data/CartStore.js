@@ -7,7 +7,7 @@ export const CartStore = new Store({
 });
 
 export const addToCart = (categorySlug, productID) => {
-
+    console.log('--> addToCart', `${ categorySlug }/${ parseInt(productID) }`);
     CartStore.update(s => { s.product_ids = [ ...s.product_ids, `${ categorySlug }/${ parseInt(productID) }` ]; });
 }
 

@@ -68,7 +68,7 @@ const FavouriteProducts = () => {
                         <IonBadge color="dark">
                             { shopCart.length }
                         </IonBadge>
-						<IonButton color="dark">
+						<IonButton color="dark" routerLink="/cart">
 							<IonIcon ref={ cartRef } className="animate__animated" icon={ cart } />
 						</IonButton>
 					</IonButtons>

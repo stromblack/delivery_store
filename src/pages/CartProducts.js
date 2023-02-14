@@ -1,4 +1,4 @@
-import { IonAvatar, IonBadge, IonButton, IonButtons, IonCardSubtitle, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonNote, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
+import { IonAvatar,IonGrid, IonBadge, IonButton, IonButtons, IonCardSubtitle, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonNote, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
 import { cart, checkmarkSharp, chevronBackOutline, trashOutline } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { CartStore, removeFromCart } from "../data/CartStore";
@@ -9,6 +9,7 @@ import styles from "./CartProducts.module.css";
 const CartProducts = () => {
 
     const cartRef = useRef();
+    const cartListRef = useRef(null);
     const products = ProductStore.useState(s => s.products);
     const shopCart = CartStore.useState(s => s.product_ids);
     const [ cartProducts, setCartProducts ] = useState([]);
@@ -54,7 +55,7 @@ const CartProducts = () => {
 	}
 
     const removeProductFromCart = async (index) => {
-
+        cartListRef.current.closeSlidingItems();
         removeFromCart(index);
     }
 
@@ -74,57 +75,53 @@ const CartProducts = () => {
                         <IonBadge color="dark">
                             { shopCart.length }
                         </IonBadge>
-						<IonButton color="dark">
+						<IonButton color="dark" routerLink="/cart">
 							<IonIcon ref={ cartRef } className="animate__animated" icon={ cart } />
 						</IonButton>
 					</IonButtons>
 				</IonToolbar>
 			</IonHeader>
 			
-			<IonContent fullscreen>
-
+			<IonContent fullscreen scrollY={true}>
+                <IonGrid>
                     <IonRow className="ion-text-center ion-margin-top">
                         <IonCol size="12">
                             <IonNote>{ cartProducts && cartProducts.length } { (cartProducts.length > 1 || cartProducts.length === 0) ? " products" : " product" } found</IonNote>
                         </IonCol>
                     </IonRow>
-
-                    <IonList>
+                </IonGrid>
+                    <IonList ref={cartListRef}>
                         { cartProducts && cartProducts.map((product, index) => {
+                            return (
+                            <IonItemSliding key={ index } className={ styles.cartSlider }>
+                                <IonItem lines="none" detail={ false } className={ styles.cartItem }>
 
-                            if ((index <= amountLoaded)) {
-                                return (
-                                <IonItemSliding className={ styles.cartSlider }>
-                                    <IonItem key={ index } lines="none" detail={ false } className={ styles.cartItem }>
+                                    <IonAvatar>
+                                        <IonImg src={ product.product.image } />
+                                    </IonAvatar>
+                                    <IonLabel className="ion-padding-start ion-text-wrap">
+                                        <p>{ product.category.name }</p>
+                                        <h4>{ product.product.name }</h4>
+                                    </IonLabel>
 
-                                        <IonAvatar>
-                                            <IonImg src={ product.product.image } />
-                                        </IonAvatar>
-                                        <IonLabel className="ion-padding-start ion-text-wrap">
-                                            <p>{ product.category.name }</p>
-                                            <h4>{ product.product.name }</h4>
-                                        </IonLabel>
-
-                                        <div className={ styles.cartActions }>
-                                            <IonBadge color="dark">{ product.product.price }</IonBadge>
-                                        </div>
-                                    </IonItem>
-
-                                    <IonItemOptions side="end">
-                                        <IonItemOption color="danger" style={{ paddingLeft: "1rem", paddingRight: "1rem" }} onClick={ () => removeProductFromCart(index) }>
-                                            <IonIcon icon={ trashOutline } />
-                                        </IonItemOption>
-                                    </IonItemOptions>
-                                </IonItemSliding>
-                                );
-                            }
+                                    <div className={ styles.cartActions }>
+                                        <IonBadge color="dark">{ product.product.price }</IonBadge>
+                                    </div>
+                                </IonItem>
+                                <IonItemOptions side="end">
+                                    <IonItemOption color="danger" style={{ paddingLeft: "1rem", paddingRight: "1rem" }} onClick={ () => removeProductFromCart(index) }>
+                                        <IonIcon icon={ trashOutline } />
+                                    </IonItemOption>
+                                </IonItemOptions>
+                            </IonItemSliding>
+                            );
                         })}
                     </IonList>
             </IonContent>
 
             <IonFooter className={ styles.cartFooter }>
                 <div className={ styles.cartCheckout }>
-                    <IonCardSubtitle>£{ total.toFixed(2) }</IonCardSubtitle>
+                    <IonCardSubtitle>{ total.toLocaleString(0, {maximumFractionDigits:2}) }</IonCardSubtitle>
 
                     <IonButton color="dark">
                         <IonIcon icon={ checkmarkSharp } />&nbsp;Checkout

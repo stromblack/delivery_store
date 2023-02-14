@@ -21,7 +21,7 @@ const Home = () => {
 					<IonTitle>Categories</IonTitle>
 
 					<IonButtons slot="start" className="ion-padding-start">
-						<IonCardSubtitle className={ styles.logo }>Ionic Furniture</IonCardSubtitle>
+						<IonCardSubtitle className={ styles.logo }>Siam Orange</IonCardSubtitle>
 					</IonButtons>
 
 					<IonButtons slot="end">

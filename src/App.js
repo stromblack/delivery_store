@@ -1,5 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/react';
+import { home, cart, heart, person } from 'ionicons/icons';
 import { IonReactRouter } from '@ionic/react-router';
 import { setupIonicReact } from '@ionic/react';
 import Home from './pages/Home';
@@ -22,52 +23,80 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import { useEffect } from 'react';
+import React from 'react';
 import { fetchData } from './data/fetcher';
 import CategoryProducts from './pages/CategoryProducts';
 import Product from './pages/Product';
 import FavouriteProducts from './pages/FavouriteProducts';
 import CartProducts from './pages/CartProducts';
-
+import Profile from './pages/Profile';
 setupIonicReact({});
 
-const App = () => {
-
-	useEffect(() => {
-
+class App extends React.Component {
+	// eslint-disable-next-line no-useless-constructor
+	constructor(props) {
+		super(props);
+	}
+	componentDidMount () {
+		console.log('--> app-mount fetchData');
 		fetchData();
-	}, []);
+	}
+	render () {
+		return (
+			<IonApp>
+				<IonReactRouter>
+					<IonTabs>
+						<IonRouterOutlet>
+							<Route path="/" exact={true}>
+								<Redirect to="/home" />
+							</Route>
+							<Route path="/home" exact={true}>
+								<Home />
+							</Route>
+		
+							<Route path="/favourites" exact>
+								<FavouriteProducts />
+							</Route>
+		
+							<Route path="/cart" exact>
+								<CartProducts />
+							</Route>
+		
+							<Route path="/category/:slug" exact>
+								<CategoryProducts />
+							</Route>
+		
+							<Route path="/category/:slug/:id" exact>
+								<Product />
+							</Route>
+							<Route path="/profile" exact render={() => <Profile />} />
+						</IonRouterOutlet>
+						<IonTabBar slot="bottom">
+							<IonTabButton tab="home" href="/home">
+								<IonIcon icon={home} />
+								<IonLabel>Home</IonLabel>
+							</IonTabButton>
 
-	return (
-		<IonApp>
-			<IonReactRouter>
-				<IonRouterOutlet>
-					<Route path="/" exact={true}>
-						<Redirect to="/home" />
-					</Route>
-					<Route path="/home" exact={true}>
-						<Home />
-					</Route>
+							<IonTabButton tab="favourites" href="/favourites">
+								<IonIcon icon={heart} />
+								<IonLabel>Favourites</IonLabel>
+							</IonTabButton>
 
-					<Route path="/favourites" exact>
-						<FavouriteProducts />
-					</Route>
+							<IonTabButton tab="cart" href="/cart">
+								<IonIcon icon={cart} />
+								<IonLabel>Carts</IonLabel>
+							</IonTabButton>
 
-					<Route path="/cart" exact>
-						<CartProducts />
-					</Route>
-
-					<Route path="/category/:slug" exact>
-						<CategoryProducts />
-					</Route>
-
-					<Route path="/category/:slug/:id" exact>
-						<Product />
-					</Route>
-				</IonRouterOutlet>
-			</IonReactRouter>
-		</IonApp>
-	);
+							<IonTabButton tab="profile" href="/profile">
+								<IonIcon icon={person} />
+								<IonLabel>Me</IonLabel>
+							</IonTabButton>
+						</IonTabBar>
+					</IonTabs>
+				</IonReactRouter>
+			</IonApp>
+		);
+	}
 }
 
-export default App;
+export default App
