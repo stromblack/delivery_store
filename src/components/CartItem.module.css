@@ -1,0 +1,9 @@
+.cartItem ion-avatar {
+
+    height: 4rem;
+    width: 4rem;
+}
+.cartSlider:not(:nth-child(1)) {
+
+    border-top: 2px solid rgb(236, 236, 236);
+}

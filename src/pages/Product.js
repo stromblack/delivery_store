@@ -63,7 +63,8 @@ const Product = () => {
             addToCart(categorySlug, productID);
 
             setTimeout(() => {
-                cartRef.current.classList.remove("animate__tada");
+                if (cartRef.current != null)
+                    cartRef.current.classList.remove("animate__tada");
             }, 500);
         }, 500);
     }

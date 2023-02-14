@@ -1,6 +1,7 @@
 import { IonAvatar,IonGrid, IonBadge, IonButton, IonButtons, IonCardSubtitle, IonCol, IonContent, IonFooter, IonHeader, IonIcon, IonImg, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonNote, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
 import { cart, checkmarkSharp, chevronBackOutline, trashOutline } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
+import CartItem from "../components/CartItem";
 import { CartStore, removeFromCart } from "../data/CartStore";
 import { ProductStore } from "../data/ProductStore";
 
@@ -93,27 +94,7 @@ const CartProducts = () => {
                     <IonList ref={cartListRef}>
                         { cartProducts && cartProducts.map((product, index) => {
                             return (
-                            <IonItemSliding key={ index } className={ styles.cartSlider }>
-                                <IonItem lines="none" detail={ false } className={ styles.cartItem }>
-
-                                    <IonAvatar>
-                                        <IonImg src={ product.product.image } />
-                                    </IonAvatar>
-                                    <IonLabel className="ion-padding-start ion-text-wrap">
-                                        <p>{ product.category.name }</p>
-                                        <h4>{ product.product.name }</h4>
-                                    </IonLabel>
-
-                                    <div className={ styles.cartActions }>
-                                        <IonBadge color="dark">{ product.product.price }</IonBadge>
-                                    </div>
-                                </IonItem>
-                                <IonItemOptions side="end">
-                                    <IonItemOption color="danger" style={{ paddingLeft: "1rem", paddingRight: "1rem" }} onClick={ () => removeProductFromCart(index) }>
-                                        <IonIcon icon={ trashOutline } />
-                                    </IonItemOption>
-                                </IonItemOptions>
-                            </IonItemSliding>
+                                <CartItem product={product} index={index} key={index} onHandleChange={() => removeProductFromCart(index)} />
                             );
                         })}
                     </IonList>
