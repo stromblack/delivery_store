@@ -19,11 +19,13 @@ const CartItem = props => {
                     <IonBadge color="dark">{ product.product.price }</IonBadge>
                 </div>
             </IonItem>
-            <IonItemOptions side="end">
-                <IonItemOption color="danger" style={{ paddingLeft: "1rem", paddingRight: "1rem" }} onClick={ props.onHandleChange }>
-                    <IonIcon icon={ trashOutline } />
-                </IonItemOption>
-            </IonItemOptions>
+            { props.onHandleChange != null &&
+                <IonItemOptions side="end">
+                    <IonItemOption color="danger" style={{ paddingLeft: "1rem", paddingRight: "1rem" }} onClick={ props.onHandleChange }>
+                        <IonIcon icon={ trashOutline } />
+                    </IonItemOption>
+                </IonItemOptions>
+            }
         </IonItemSliding>
     )
 }
