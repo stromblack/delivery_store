@@ -9,6 +9,7 @@ import Profile from '../pages/Profile';
 import Checkout from '../pages/Checkout';
 import PlaceOrder from '../pages/PlaceOrder';
 import SelectAddress from '../pages/SelectAddress';
+import AddAddress from '../pages/AddAddress';
 const RouterApp = () => {
     return (
         <>
@@ -19,6 +20,7 @@ const RouterApp = () => {
             <Route path="/order/checkout" exact render={() => <Checkout />} />
             <Route path="/order/placeorder" exact render={() => <PlaceOrder /> } />
             <Route path="/order/address" exact render={() => <SelectAddress />} />
+            <Route path="/order/address/add" exact render={() => <AddAddress />} />
             <Route path="/category/:slug" exact render={() => <CategoryProducts />} />
             <Route path="/category/:slug/:id" exact render={() => <Product />} />
             <Route path="/profile" exact render={() => <Profile />} />

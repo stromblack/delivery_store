@@ -6,6 +6,8 @@
   "dependencies": {
     "@capacitor/android": "^4.6.3",
     "@capacitor/core": "^4.1.0",
+    "@capacitor/geolocation": "^4.1.0",
+    "@capacitor/google-maps": "^4.4.0",
     "@capacitor/ios": "^4.6.3",
     "@ionic/react": "^6.2.4",
     "@ionic/react-router": "^6.2.4",

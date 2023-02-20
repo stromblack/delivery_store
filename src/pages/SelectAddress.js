@@ -16,7 +16,7 @@ const SelectAddress = () => {
             </IonHeader>
             <IonContent>
                 <Address showonly={false} />
-                <IonButton expand="block">Add new address</IonButton>
+                <IonButton expand="block" routerLink="/order/address/add">Add new address</IonButton>
                 {/* <div
                     style={{
                     display: 'flex',

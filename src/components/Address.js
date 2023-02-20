@@ -1,4 +1,4 @@
-import { IonList, IonItem, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonIcon, IonLabel, IonText, IonRadioGroup, IonRadio } from "@ionic/react";
+import { IonList, IonItem, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonIcon, IonLabel, IonText, IonRadioGroup, IonRadio, IonButton } from "@ionic/react";
 import { useState, useEffect, useRef } from "react";
 import { AddressStore, selectAddress } from '../data/AddressStore';
 import { location } from "ionicons/icons";
@@ -26,9 +26,11 @@ const Address = (props) => {
                     tmpAddress.push(address);
                 }
             });
+            // set into state
             setAddress(tmpAddress);
             // default select
-            if (props.showonly === false) handleSelectAddress(defaultSelected); 
+            if (props.showonly === false && tmpAddress.length > 1) handleSelectAddress(defaultSelected); 
+            else if (props.showonly === false && tmpAddress.length === 1) handleSelectAddress(0);
         };
         getAddress();
     }, [address, props.showonly]);
@@ -46,6 +48,10 @@ const Address = (props) => {
             </IonCardHeader>
             <IonCardContent>
                 <IonList>
+                    { 
+                        addressList.length === 0 && props.showonly === true && 
+                        <IonButton routerLink="/order/address">Select Address</IonButton>
+                    }
                     <IonRadioGroup allowEmptySelection={true} ref={radioRef}>
                     {
                         addressList && addressList.map((address, index) => {
