@@ -1,0 +1,10 @@
+.addressCard {
+    box-shadow: none !important;
+    margin-bottom: 0px !important;
+}
+.addressItem { 
+    border-top: 2px solid rgb(236, 236, 236);
+}
+.addressCardTitle {
+    padding-bottom: 4px !important;
+}
