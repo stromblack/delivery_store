@@ -15,6 +15,14 @@ export const addToAddress = (address) => {
     AddressStore.update(s => { s.address_list = [...s.address_list, address]; });
 }
 
+export const editAddress = (obj, index) => {
+    AddressStore.update(s => { 
+        if (s.address_list.length > index) {
+            s.address_list[index] = obj;
+        }
+    });
+}
+
 export const selectAddress = (index) => {
     AddressStore.update(s => { s.address_list.forEach((address, aindex) => {
         if (aindex === index) address.current = true;

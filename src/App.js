@@ -24,11 +24,6 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import React from 'react';
 import { fetchData } from './data/fetcher';
-import CategoryProducts from './pages/CategoryProducts';
-import Product from './pages/Product';
-import FavouriteProducts from './pages/FavouriteProducts';
-import CartProducts from './pages/CartProducts';
-import Profile from './pages/Profile';
 setupIonicReact({});
 
 class App extends React.Component {
@@ -37,7 +32,7 @@ class App extends React.Component {
 		super(props);
 	}
 	componentDidMount () {
-		console.log('--> app-mount fetchData');
+		// console.log('--> app-mount fetchData');
 		fetchData();
 	}
 	render () {

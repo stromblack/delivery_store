@@ -1,12 +1,14 @@
-import { IonList, IonItem, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonIcon, IonLabel, IonText, IonRadioGroup, IonRadio, IonButton } from "@ionic/react";
+import { IonList, IonItem, IonCard, IonCardHeader, IonCardTitle, IonCardContent,IonIcon, IonItemSliding,IonItemOptions, IonItemOption , IonText, IonRadioGroup, IonRadio, IonButton } from "@ionic/react";
 import { useState, useEffect, useRef } from "react";
-import { AddressStore, selectAddress } from '../data/AddressStore';
-import { location } from "ionicons/icons";
+import { AddressStore, removeFromAddress, selectAddress } from '../data/AddressStore';
+import { location, trash, pencilOutline } from "ionicons/icons";
 import styles from "./address.module.css";
+import { useHistory } from 'react-router-dom';
 const Address = (props) => {
     const address = AddressStore.useState(s => s.address_list);
     const [ addressList, setAddress ] = useState([]);
     const radioRef = useRef();
+    const history = useHistory();
     useEffect(() => {
         const getAddress = () => {
             setAddress([]);    
@@ -39,6 +41,12 @@ const Address = (props) => {
         selectAddress(index);
         radioRef.current.value = index.toString();
     }
+    const handleRemove = (index) => {
+        removeFromAddress(index);
+    }
+    const handleEdit = (index) => {
+        history.push("/order/address/add?address=" + index);
+    }
     return (
         <IonCard className={`ion-text-left ${styles.addressCard}`}>
             <IonCardHeader className={styles.addressCardTitle}>
@@ -52,22 +60,33 @@ const Address = (props) => {
                         addressList.length === 0 && props.showonly === true && 
                         <IonButton routerLink="/order/address">Select Address</IonButton>
                     }
-                    <IonRadioGroup allowEmptySelection={true} ref={radioRef}>
-                    {
-                        addressList && addressList.map((address, index) => {
-                            return <IonItem key={index} onClick={props.showonly === false ? () => handleSelectAddress(index) : undefined}
-                                className={styles.addressItem} button={props.showonly} detail={props.showonly} routerLink="/order/address">
-                                { props.showonly === false &&
-                                    <IonRadio slot="start" value={index.toString()}></IonRadio>
-                                }
-                                <div className="ion-text-start">
-                                    <h2>{address.name_address} | {address.phone_address}</h2>
-                                    {address.detail_address}
-                                </div>
-                            </IonItem>
-                        })
-                    }
-                    </IonRadioGroup>
+                    
+                        <IonRadioGroup allowEmptySelection={true} ref={radioRef}>
+                        {
+                            addressList && addressList.map((address, index) => {
+                                return <IonItemSliding key={index}>
+                                    <IonItem onClick={props.showonly === false ? () => handleSelectAddress(index) : undefined}
+                                        className={styles.addressItem} button={props.showonly} detail={props.showonly} routerLink="/order/address">
+                                        { props.showonly === false &&
+                                            <IonRadio slot="start" value={index.toString()}></IonRadio>
+                                        }
+                                        <div className="ion-text-start">
+                                            <h2>{address.name_address} | {address.phone_address}</h2>
+                                            {address.detail_address}
+                                        </div>
+                                    </IonItem>
+                                    <IonItemOptions>
+                                        <IonItemOption onClick={() => handleEdit(index)}>
+                                            <IonIcon slot="icon-only" icon={pencilOutline}></IonIcon>
+                                        </IonItemOption>
+                                        <IonItemOption color="danger" onClick={() => handleRemove(index)}>
+                                            <IonIcon slot="icon-only" icon={trash}></IonIcon>
+                                        </IonItemOption>
+                                    </IonItemOptions>
+                                </IonItemSliding>
+                            })
+                        }
+                        </IonRadioGroup>
                 </IonList>
             </IonCardContent>
         </IonCard>
