@@ -75,14 +75,16 @@ const Address = (props) => {
                                             {address.detail_address}
                                         </div>
                                     </IonItem>
-                                    <IonItemOptions>
-                                        <IonItemOption onClick={() => handleEdit(index)}>
-                                            <IonIcon slot="icon-only" icon={pencilOutline}></IonIcon>
-                                        </IonItemOption>
-                                        <IonItemOption color="danger" onClick={() => handleRemove(index)}>
-                                            <IonIcon slot="icon-only" icon={trash}></IonIcon>
-                                        </IonItemOption>
-                                    </IonItemOptions>
+                                    {   props.showonly === false && 
+                                        <IonItemOptions>
+                                            <IonItemOption onClick={() => handleEdit(index)}>
+                                                <IonIcon slot="icon-only" icon={pencilOutline}></IonIcon>
+                                            </IonItemOption>
+                                            <IonItemOption color="danger" onClick={() => handleRemove(index)}>
+                                                <IonIcon slot="icon-only" icon={trash}></IonIcon>
+                                            </IonItemOption>
+                                        </IonItemOptions>
+                                    }
                                 </IonItemSliding>
                             })
                         }

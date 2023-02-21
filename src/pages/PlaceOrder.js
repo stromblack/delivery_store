@@ -2,12 +2,22 @@
 import { IonButton, IonButtons, IonHeader, IonIcon, IonPage, IonToolbar, IonContent, IonFooter, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
 import { useState } from 'react'
+import { AddressStore } from '../data/AddressStore'
+import { CartStore } from '../data/CartStore'
+import { ProductStore } from '../data/ProductStore'
 import styles from './PlaceOrder.module.css'
 
 const PlaceOrder = () => {
 
     const [deliveryDate, setDeliveryDate] = useState(new Date().toLocaleDateString());
     const [orderID, setOrderID] = useState('000001');
+    const shopCart = CartStore.useState(s => s.product_ids);
+    const products = ProductStore.useState(s => s.products);
+    const address = AddressStore.useState(s => s.address_list);
+    useState(() => {
+        console.log(shopCart);
+        console.log(address.filter(x => x.current === true));
+    }, [address]);
     return (
         <IonPage id="placeorder-page">
             <IonHeader>

@@ -7,6 +7,7 @@ import { ProductStore } from "../data/ProductStore";
 
 import styles from "./Checkout.module.css";
 import Address from "../components/Address";
+import { AddressStore } from "../data/AddressStore";
 
 const Checkout = () => {
 
@@ -14,6 +15,8 @@ const Checkout = () => {
     const [ cartProducts, setCartProducts ] = useState([]);
     const shopCart = CartStore.useState(s => s.product_ids);
     const products = ProductStore.useState(s => s.products);
+    const [canOrder, setCanOrder] = useState(false);
+    const address = AddressStore.useState(s => s.address_list);
     useEffect(() => {
 
         const getCartProducts = () => {
@@ -42,7 +45,13 @@ const Checkout = () => {
         }
 
         getCartProducts();
-    }, [ shopCart ]);
+    }, [products, shopCart]);
+    useEffect(() => {
+        // console.log('--> use effect', address, shopCart);
+        if (address.length > 0 && shopCart.length > 0) {
+            setCanOrder(true);
+        }
+    }, [ address, shopCart ]);
     return (
         <IonPage id="checkout-page">
             <IonHeader>
@@ -78,7 +87,7 @@ const Checkout = () => {
                         <IonCardSubtitle>
                             { total.toLocaleString(0, {maximumFractionDigits:2}) }
                         </IonCardSubtitle>
-                        <IonButton color="tertiary" routerLink="/order/placeorder" disabled={cartProducts.length > 0 ? false : true}>
+                        <IonButton color="tertiary" routerLink="/order/placeorder" disabled={!canOrder}>
                             <IonIcon icon={checkmarkSharp} />&nbsp;Place Order
                         </IonButton>
                     </div>

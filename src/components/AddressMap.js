@@ -31,7 +31,7 @@ class AddressMap extends React.Component {
   }
   createMap = async (coords) => {
     if (!this.mapRef.current) return;
-    console.log(this.props);
+    // console.log(this.props);
     if (this.props.mode === 'edit' && this.props.coord.length > 0) {
       coords = this.ConvertToLatlng(this.props.coord);
     }
