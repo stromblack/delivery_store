@@ -1,3 +1,9 @@
 .AddressWrapper {
     margin: 8px;
 }
+
+.ButtonOverlay {
+    position: absolute!important;
+    top: 26rem;
+    right: 16px;
+}

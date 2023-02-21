@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonToolbar, IonButtons, IonButton, IonIcon, IonList, IonItem, IonLabel, IonInput, IonTextarea } from '@ionic/react'
+import { IonContent, IonHeader, IonPage, IonToolbar, IonButtons, IonButton, IonIcon, IonList, IonItem, IonLabel, IonInput, IonTextarea, IonText } from '@ionic/react'
 import { chevronBackOutline } from 'ionicons/icons'
 import { useState } from 'react'
 import { addToAddress } from '../data/AddressStore'
@@ -15,6 +15,7 @@ const AddAddress = () => {
     const [nameAddress, setNameAddress] = useState('');
     const [detailAddress, setDetailAddress] = useState('');
     const [phoneAddress, setPhoneAddress] = useState('');
+    const [coordAddress, setCoordAddress] = useState('');
     const history = useHistory();
     const handleUpdate = (target,value) => {
         // console.log(value);
@@ -24,13 +25,16 @@ const AddAddress = () => {
             setDetailAddress(value);
         } else if (target === tags.PHONE) {
             setPhoneAddress(value);
+        } else {
+            setCoordAddress(value);
         }
     }
     const hanldeAddAddress = () => {
         let obj = {
             'name_address': nameAddress,
             'detail_address': detailAddress,
-            'phone_address': phoneAddress
+            'phone_address': phoneAddress,
+            'coord_address': coordAddress
         }
         addToAddress(obj);
         history.go(-1);
@@ -47,7 +51,8 @@ const AddAddress = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <AddressMap />
+                <AddressMap handleCallback={handleUpdate} />
+                <IonText style={{'padding': '12px'}}>{coordAddress}</IonText>
                 <IonList>
                     <IonItem counter={true} counterFormatter={(inputLength, maxLength) => `${maxLength - inputLength} characters remaining`}>
                         {nameAddress} {detailAddress} {phoneAddress}
