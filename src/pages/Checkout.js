@@ -14,7 +14,6 @@ const Checkout = () => {
     const [ cartProducts, setCartProducts ] = useState([]);
     const shopCart = CartStore.useState(s => s.product_ids);
     const products = ProductStore.useState(s => s.products);
-    
     useEffect(() => {
 
         const getCartProducts = () => {
@@ -79,7 +78,7 @@ const Checkout = () => {
                         <IonCardSubtitle>
                             { total.toLocaleString(0, {maximumFractionDigits:2}) }
                         </IonCardSubtitle>
-                        <IonButton color="tertiary" routerLink="/order/placeorder">
+                        <IonButton color="tertiary" routerLink="/order/placeorder" disabled={cartProducts.length > 0 ? false : true}>
                             <IonIcon icon={checkmarkSharp} />&nbsp;Place Order
                         </IonButton>
                     </div>
