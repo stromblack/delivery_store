@@ -18,6 +18,9 @@ const PlaceOrder = () => {
         console.log(shopCart);
         console.log(address.filter(x => x.current === true));
     }, [address]);
+    const JsonText = (data) => {
+        return JSON.stringify(data);
+    }
     return (
         <IonPage id="placeorder-page">
             <IonHeader>
@@ -48,6 +51,8 @@ const PlaceOrder = () => {
                             Your order will be delivered by { deliveryDate } <br />
                             Order ID: { orderID } <br />
                             Thank you for choosing Siam Orange!
+                            <JsonText data={address} />
+                            <JsonText data={shopCart} />
                         </IonCardContent>
                     </IonCard>
                 </div>
