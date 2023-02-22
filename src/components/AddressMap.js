@@ -4,6 +4,7 @@ import styles from './AddressMap.module.css'
 import { Geolocation } from '@capacitor/geolocation';
 import { IonButton, IonIcon } from '@ionic/react';
 import { locateOutline } from 'ionicons/icons';
+import { GOOGLE_API_KEY } from '../data/Location';
 
 class AddressMap extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class AddressMap extends React.Component {
     const Map = await GoogleMap.create({
       id: 'my-address-map',
       element: this.mapRef.current,
-      apiKey: 'AIzaSyD1vPsskUEtx0xFLNcm7jbtzeHYU4gCVTc',
+      apiKey: GOOGLE_API_KEY,
       config: {
         center: {
           lat: coords.latitude,

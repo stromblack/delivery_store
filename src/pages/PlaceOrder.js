@@ -1,9 +1,11 @@
 
 import { IonButton, IonButtons, IonHeader, IonIcon, IonPage, IonToolbar, IonContent, IonFooter, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg } from '@ionic/react'
+import { DistanceMatrixService, useJsApiLoader } from '@react-google-maps/api'
 import { chevronBackOutline } from 'ionicons/icons'
 import { useState } from 'react'
 import { AddressStore } from '../data/AddressStore'
 import { CartStore } from '../data/CartStore'
+import { GOOGLE_API_KEY } from '../data/Location'
 import { ProductStore } from '../data/ProductStore'
 import styles from './PlaceOrder.module.css'
 
@@ -14,12 +16,30 @@ const PlaceOrder = () => {
     const shopCart = CartStore.useState(s => s.product_ids);
     const products = ProductStore.useState(s => s.products);
     const address = AddressStore.useState(s => s.address_list);
+    const [LocationOrigin, setOrigin] = useState('13.759371554829372, 100.4814038593201');
+    const [LocationDestination, setDestination] = useState('13.685567312333031, 100.56731376527524');
     useState(() => {
-        console.log(shopCart);
-        console.log(address.filter(x => x.current === true));
-    }, [address]);
+        const delivery_place = address.filter(x => x.current === true).shift();
+        // console.log(shopCart, delivery_place);
+    }, []);
     const JsonText = (data) => {
         return JSON.stringify(data);
+    }
+    const distanceMatrix = () => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const { isLoaded, loadError } = useJsApiLoader({
+            googleMapsApiKey: GOOGLE_API_KEY
+        })
+        const requestDistance = () => {
+            return <DistanceMatrixService 
+                options={{
+                    destinations: [LocationDestination],
+                    origins: [LocationOrigin],
+                    travelMode: "DRIVING",
+                }}
+                callback={(res) => console.log(res)} />
+        }
+        return isLoaded ? requestDistance() : <div>cannot be load right now</div>
     }
     return (
         <IonPage id="placeorder-page">
@@ -53,6 +73,7 @@ const PlaceOrder = () => {
                             Thank you for choosing Siam Orange!
                             <JsonText data={address} />
                             <JsonText data={shopCart} />
+                            {distanceMatrix()}
                         </IonCardContent>
                     </IonCard>
                 </div>
